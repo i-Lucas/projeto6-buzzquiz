@@ -1,7 +1,9 @@
+// importando a função
+import {GetAllQuizzes} from './page-1.js'
 
-const teste = 10
-const functionteste = (number) => console.log(`esse é o retorno da função com o parâmetro: ${number}`)
+// quando a página carregar chama a função que está no outro módulo
+window.onload = () => {
 
-
-
-export { teste, functionteste }
+    GetAllQuizzes()
+    
+}
