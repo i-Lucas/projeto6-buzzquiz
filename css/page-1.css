@@ -33,7 +33,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    background-color: lightgray;
+    background-color: lightseagreen;
 }
 
 .all-quizz-box {
@@ -41,7 +41,19 @@
     height: calc(100vh / 3) ;
     margin-top: 10px;
     margin-left: 1%;
-    background-color:red;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-radius: 5px;
+}
+
+.all-quizz-box h1 {
+    position: relative;
+    top: 60%; left: 5%;
+    font-family: Roboto;
+    color: #FFFFFF;
+    font-size: 19px;
+    line-height: 22px;
 }
 
  @media (max-width: 900px) {
