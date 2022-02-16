@@ -1,5 +1,5 @@
 function GetAllQuizzes() {
-    
+
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
     promise.then((response) => {
         console.log(response.data)
@@ -25,8 +25,9 @@ function RenderAllQuizzes(quizzes) {
         const allquizzbox = document.getElementById(`${quizzes[i].id}`)
         allquizzbox.style.backgroundImage = `url('${quizzes[i].image}')`
     }
-}
 
+    // console.log(quizzes[0].levels[0].title)
+}
 
 // exportando a função
 export { GetAllQuizzes }
