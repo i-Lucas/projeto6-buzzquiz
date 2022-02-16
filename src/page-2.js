@@ -1,81 +1,44 @@
-let img = "https://c.tenor.com/7t8foti8FG8AAAAC/loading-screen-cat.gif"
+const urlOnlyQuizz = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/";
+let id = 2335;
 
-let myQuizz = {
 
-    title: "Título do quizz",
-    image: `${img}`,
-    questions: [
-        {
-            title: "Título da pergunta 1",
-            color: "#123456",
-            answers: [
-                {
-                    text: "Texto da resposta 1",
-                    image: "https://http.cat/411.jpg",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Texto da resposta 2",
-                    image: "https://http.cat/412.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        },
-        {
-            title: "Título da pergunta 2",
-            color: "#123456",
-            answers: [
-                {
-                    text: "Texto da resposta 1",
-                    image: "https://http.cat/411.jpg",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Texto da resposta 2",
-                    image: "https://http.cat/412.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        },
-        {
-            title: "Título da pergunta 3",
-            color: "#123456",
-            answers: [
-                {
-                    text: "Texto da resposta 1",
-                    image: "https://http.cat/411.jpg",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Texto da resposta 2",
-                    image: "https://http.cat/412.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        }
-    ],
-    levels: [
-        {
-            title: "Título do nível 1",
-            image: "https://http.cat/411.jpg",
-            text: "Descrição do nível 1",
-            minValue: 0
-        },
-        {
-            title: "Título do nível 2",
-            image: "https://http.cat/412.jpg",
-            text: "Descrição do nível 2",
-            minValue: 50
-        }
-    ]
+// Ao clicar em um quizz na tela inicial o onclick deve chamar a função getOnlyQuizz(id) e passar o id como parametro
+function getOnlyQuizz(){
+    const promise = axios.get(urlOnlyQuizz + id);
+    promise.then(renderizeQuizz);
 }
 
-function CreateNewQuizz(quizz) {
-    const promise = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizz)
-    promise.catch((error) => {
-        console.error(error)
-    })
-}
+function renderizeQuizz(load){
+    let data = load.data;
+    console.log(data);
+    const imageQuizz= document.querySelector(".image-logo");
+    imageQuizz.style.backgroundImage = `url('${data.image}')`;
+    const questionsQuizz = document.querySelector(".quizz-questions-container");
 
-// CreateNewQuizz(myQuizz)
-export { CreateNewQuizz, myQuizz }
+    questionsQuizz.innerHTML=
+    `<div class="quizz-onlyquestion-container">
+    <div class="quizz-question-box"> 
+        <h1>${data.questions[0].title}</h1>
+    </div>
+    <div class="image-quizz-box"></div>
+    <div class="image-quizz-box"></div>
+    <div class="image-quizz-box"></div>
+    <div class="image-quizz-box"></div>
+    </div>`
+    document.querySelector(".quizz-question-box").style.background = data.questions[0].color;
+
+}
+export { getOnlyQuizz }
+
+{/* <section class="quizz-questions-container">
+<div class="quizz-onlyquestion-container">
+    <div class="quizz-question-box"> 
+        <h1>A questão será escrita aqui!</h1>
+    </div>
+    <div class="image-quizz-box"></div>
+    <div class="image-quizz-box"></div>
+    <div class="image-quizz-box"></div>
+    <div class="image-quizz-box"></div>
+</div>
+
+</section> */}
