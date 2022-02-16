@@ -1,7 +1,5 @@
 # projeto6-buzzquiz
 this project is part of the fullstack development course at driven
 
-# Teste 
-
-# Novo Teste
-# Victor modificou aqui
+# track development online: 
+https://4tsbre.csb.app/
