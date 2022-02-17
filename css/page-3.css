@@ -132,6 +132,7 @@
     height: 10%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-left: 5%;
     padding-right: 5%;
     background-color: #FFFFFF;
@@ -176,21 +177,20 @@
     position: absolute;
     top: 80px;
     width: 100%;
-    height: calc(200vh - 80px);
+    height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* background-color: #FAFAFA; */
-    background-color: blue;
+    background-color: #FAFAFA;
 }
 
 .quizz-levels-title {
     width: 100%;
-    height: 10%;
+    height: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: salmon
+    /* background-color: salmon */
 }
 
 .quizz-levels-title h1 {
@@ -200,29 +200,156 @@
     line-height: 27px;
 }
 
+.quizz-levels-input-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* background-color: lightgreen; */
+}
 
+.quizz-levels-input-container input {
+    width: 100%;
+    height: 10%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
 
+.quizz-levels-text {
+    width: 100%;
+    height: 5%;
+    display: flex;
+    align-items: center;
+}
+
+.quizz-levels-text h1 {
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 23px;
+}
+
+.quizz-levels-box {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.quizz-levels-box h1 {
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+}
+
+.quizz-levels-box ion-icon {
+    font-size: 25px;
+}
+
+.quizz-levels-final-btn {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quizz-levels-final-btn button {
+    width: 100%;
+    height: 50%;
+    background: #EC362D;
+    border-radius: 15px;
+    border: none;
+    font-family: Roboto;
+    font-size: 21px;
+    line-height: 25px;
+    color: #FFF5F4;
+}
 
 /* ------------------------------------------------- */
 
 .quizz-success {
+    position: absolute;
+    top: 80px;
     width: 100%;
-    height: 100%;
-    background-color: lightgreen;
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FAFAFA;
 }
 
+.quizz-success-title {
+    width: 100%;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: salmon */
+}
 
+.quizz-success-title h1 {
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 23px;
+    line-height: 27px;
+}
+
+.quizz-success-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quizz-success-box {
+    width: 100%;
+    height: 40%;
+    background-color: lightblue;
+    border-radius: 5px;
+}
+
+.quizz-sucess-btn {
+    margin-top: 20px;
+    width: 100%;
+    height: 10%;
+}
+
+.quizz-success-container button {
+    width: 100%;
+    height: 100%;
+    background: #EC362D;
+    border-radius: 15px;
+    border: none;
+    color: #FFFFFF;
+}
+
+/* ------------------------------------------------- */
 
 /* desktop */
 @media (min-width: 900px) {
-    .quizz-info-title, .quizz-info-input-container, .quizz-questions-title, .quizz-questions-input-container {
-        width: 70%;
+    .quizz-info-title, .quizz-info-input-container, 
+    .quizz-questions-title, .quizz-questions-input-container, 
+    .quizz-input-title, .quizz-levels-input-container, .quizz-success-container {
+        width: 60%;
     }
-    .quizz-question-final-btn button {
+    .quizz-question-final-btn button, .quizz-levels-final-btn button, .quizz-sucess-btn {
         width: 50%;
     }
     .quizz-info-button-box button {
         width: 60%;
         margin-top: 5%;
+    }
+    .quizz-success-box {
+        width: 80%;
+        height: 50%;
     }
 }
