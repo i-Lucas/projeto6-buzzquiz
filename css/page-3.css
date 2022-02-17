@@ -170,13 +170,40 @@
     color: #FFF5F4;
 }
 
-/* -------------- */
+/* ------------------------------------------------- */
 
 .quizz-levels {
+    position: absolute;
+    top: 80px;
     width: 100%;
-    height: 150vh;
-    background-color: lightcyan;
+    height: calc(200vh - 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: #FAFAFA; */
+    background-color: blue;
 }
+
+.quizz-levels-title {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: salmon
+}
+
+.quizz-levels-title h1 {
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 23px;
+    line-height: 27px;
+}
+
+
+
+
+/* ------------------------------------------------- */
 
 .quizz-success {
     width: 100%;
