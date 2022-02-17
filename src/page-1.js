@@ -18,7 +18,7 @@ function RenderAllQuizzes(quizzes) {
     for (let i = 0; i < quizzes.length; i++) {
         // console.log(quizzes[i].id, quizzes[i].title, quizzes[i].image)
         allquizzcontainer.innerHTML += `
-            <div class="all-quizz-box" id = "${quizzes[i].id}">
+            <div class="all-quizz-box" id = "${quizzes[i].id}" onclick ="getOnlyQuizz(${quizzes[i].id})">
                 <h1 class = 'title'>${quizzes[i].title}</h1>
             </div>
         `
