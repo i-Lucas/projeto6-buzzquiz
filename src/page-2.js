@@ -46,5 +46,5 @@ function renderizeQuizz(load){
 function randonQuestions(){
     return Math.random() - 0.5; 
 }
-export { getOnlyQuizz }
+// export { getOnlyQuizz }
 
