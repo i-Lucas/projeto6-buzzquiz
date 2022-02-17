@@ -34,17 +34,19 @@
     justify-content: space-between;
     margin-top: 20px;
 }
-.quizz-question-box{
+.quizz-question-title{
     width: 100%;
     height: calc(80% / 3);
     display: flex;
+    flex-wrap: wrap;
+    text-align: center;
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
-    background: green;
+    
  
 }
-.quizz-question-box h1{
+.quizz-question-title h1{
     padding: 14% 0;
     font-family: Roboto;
     font-style: normal;

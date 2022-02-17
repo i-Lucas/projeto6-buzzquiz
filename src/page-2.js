@@ -1,5 +1,5 @@
 const urlOnlyQuizz = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/";
-let id = 2408;
+let id = 2483   ;
 let question =[];
 let answers = [];
 
@@ -11,7 +11,7 @@ function getOnlyQuizz(){
 
 function renderizeQuizz(load){
     let data = load.data;
-    console.log(data.questions[0].answers[0]);
+    console.log(data.questions[0]);
     const imageQuizz= document.querySelector(".image-logo");
     imageQuizz.style.backgroundImage = `url('${data.image}')`;
     const questionsQuizz = document.querySelector(".quizz-questions-container");
@@ -19,32 +19,37 @@ function renderizeQuizz(load){
     data.questions.forEach(element => {
         let text="";
         answers= [];
+        console.log(element.color); 
         element.answers.forEach(answer=>{answers.push(answer)});
         answers.sort(randonQuestions);
-        console.log(answers);
         answers.forEach(item =>{
             text+=`
-            <div class="image-quizz-box">
+            <div class="image-quizz-box" onclick ="testando()">
                 <img src="${item.image}" alt=""/>
                 <h1>${item.text}</h1>
             </div>`
         });
         questionsQuizz.innerHTML+=
         `<div class="quizz-onlyquestion-container">
-            <div class="quizz-question-box"> 
+            <div class="quizz-question-title" style="background : ${element.color};"> 
                 <h1>${element.title}</h1>
             </div> 
             ${text}
         </div>
         `
-            text = "";     
+            text = "";    
+            
 
     });
-    document.querySelector(".quizz-question-box").style.background = data.questions[0].color;
+    // document.querySelector(".quizz-question-title").style.background = data.questions[0].color;
 
 }
 function randonQuestions(){
     return Math.random() - 0.5; 
 }
-export { getOnlyQuizz }
+function testando(){
+    alert("funfou");
+}
+getOnlyQuizz()
+// export { getOnlyQuizz}
 
