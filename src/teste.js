@@ -1,4 +1,4 @@
-import {getOnlyQuizz} from './page-2.js'
+GetAllQuizzes()
 
 function GetAllQuizzes() {
 
@@ -32,9 +32,3 @@ function RenderAllQuizzes(quizzes) {
 function testes(id) {
     alert(id)
 }
-
-// exportando a função
-export { GetAllQuizzes }
-
-
-// onclick="getOnlyQuizz('${quizzes[i].id}')">

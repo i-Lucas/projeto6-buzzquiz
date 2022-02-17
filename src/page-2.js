@@ -1,9 +1,9 @@
 const urlOnlyQuizz = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/";
-let id = 2335;
-
+// let id = 2335;
 
 // Ao clicar em um quizz na tela inicial o onclick deve chamar a função getOnlyQuizz(id) e passar o id como parametro
-function getOnlyQuizz(){
+function getOnlyQuizz(id){
+    alert(id)
     const promise = axios.get(urlOnlyQuizz + id);
     promise.then(renderizeQuizz);
 }
