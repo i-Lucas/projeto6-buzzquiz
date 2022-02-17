@@ -16,7 +16,7 @@ function renderizeQuizz(load){
     imageQuizz.style.backgroundImage = `url('${data.image}')`;
     const questionsQuizz = document.querySelector(".quizz-questions-container");
     questionsQuizz.innerHTML="";
-    data.questions.forEach(element => {
+    data.questions.forEach((element, index) => {
         let text="";
         answers= [];
         console.log(element.color); 
@@ -24,13 +24,13 @@ function renderizeQuizz(load){
         answers.sort(randonQuestions);
         answers.forEach(item =>{
             text+=`
-            <div class="image-quizz-box" onclick ="testando()">
+            <div class="image-quizz-box unset blur" onclick ="selectAnswer(this, ${index})">
                 <img src="${item.image}" alt=""/>
                 <h1>${item.text}</h1>
             </div>`
         });
         questionsQuizz.innerHTML+=
-        `<div class="quizz-onlyquestion-container">
+        `<div id="p${index}" class="quizz-onlyquestion-container">
             <div class="quizz-question-title" style="background : ${element.color};"> 
                 <h1>${element.title}</h1>
             </div> 
@@ -47,8 +47,9 @@ function renderizeQuizz(load){
 function randonQuestions(){
     return Math.random() - 0.5; 
 }
-function testando(){
-    alert("funfou");
+function selectAnswer(element, id){
+    element.classList.remove("unset")
+    document.querySelectorAll(`#p${id} .unset`).classList.add("blur");
 }
 getOnlyQuizz()
 // export { getOnlyQuizz}
