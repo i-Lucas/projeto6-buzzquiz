@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
     <link rel="stylesheet" href="./css/page-1.css">
     <link rel="stylesheet" href="./css/page-2.css">
+    <link rel="stylesheet" href="./css/page-3.css">
     <link rel="stylesheet" href="./css/all.css">
     <title>Document</title>
 </head>
@@ -21,7 +22,8 @@
 
     <main>
 
-        <section class = 'page-1 hidden' >
+        <section class='page-1 hidden'>
+            <!-- hidden here -->
             <div class="create-quizz"></div>
             <div class="user-quizz-container">
                 <div class="user-quizz-box"></div>
@@ -58,7 +60,8 @@
                 <div class="all-quizz-box"></div> -->
             </div>
         </section>
-        <section class = 'page-2 ' >
+        <section class='page-2 hidden'> <!-- hidden here -->
+            <!-- hidden here -->
             <div class='image-logo'></div>
             <section class="quizz-questions-container">
                     <div class="quizz-onlyquestion-container">
@@ -70,18 +73,84 @@
                         <div class="image-quizz-box"></div>
                         
                     </div>
-               
+                    <div class="image-quizz-box"></div>
+                    <div class="image-quizz-box"></div>
+                    <div class="image-quizz-box"></div>
+                    <div class="image-quizz-box"></div>
+                </div>
+
             </section>
-            
         </section>
+
+        <section class="page-3"> <!-- hidden here -->
+
+            <section class="quizz-info"> <!-- hidden here -->
+                <div class="quizz-info-title">
+                    <h1>Comece pelo começo</h1>
+                </div>
+                <div class="quizz-info-input-container">
+                    <input type="text" placeholder="Título do seu quizz">
+                    <input type="text" placeholder="URL da imagem do seu quizz">
+                    <input type="text" placeholder="Quantidade de perguntas do quizz">
+                    <input type="text" placeholder="Quantidade de níveis do quizz">
+                    <div class="quizz-info-button-box">
+                        <button>Prosseguir pra criar perguntas</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="quizz-questions hidden"> <!-- hidden here -->
+                <div class="quizz-questions-title">
+                    <h1>Crie suas perguntas</h1>
+                </div>
+                <div class="quizz-questions-input-container">
+                    <div class="quizz-questions-text"><h1>Pergunta 1</h1></div>
+                    <input type="text" placeholder="Texto da pergunta">
+                    <input type="text" placeholder="Cor de fundo da pergunta">
+                    <div class="quizz-questions-text"><h1>Resposta correta</h1></div>
+                    <input type="text" placeholder="Resposta correta">
+                    <input type="text" placeholder="URL da imagem">
+                    <div class="quizz-questions-text"><h1>Respostas incorretas</h1></div>
+                    <input type="text" placeholder="Resposta incorreta 1">
+                    <input type="text" placeholder="URL da imagem 1">
+                    <input type="text " placeholder="Resposta incorreta 2">
+                    <input type="text" placeholder="URL da imagem 2">
+                    <input type="text" placeholder="Resposta incorreta 3">
+                    <input type="text" placeholder="URL da imagem 3">
+
+                    <div class="quizz-question-box">
+                        <div class="text"> <h1>Pergunta #ID</h1></div>
+                        <div class="icon"><ion-icon name="create-outline"></ion-icon></div>
+                    </div>
+                    <div class="quizz-question-box">
+                        <div class="text"> <h1>Pergunta #ID</h1></div>
+                        <div class="icon"><ion-icon name="create-outline"></ion-icon></div>
+                    </div>
+
+                    <div class="quizz-question-final-btn"><button>Prosseguir pra criar níveis</button></div>
+                </div>
+            </section>
+
+            <section class="quizz-levels hidden"></section> <!-- hidden here -->
+
+            <section class="quizz-success hidden"></section> <!-- hidden here -->
+
+        </section>
+
+
+
+        </section>
+
+
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 
-    <script type="module" src="./src/app.js"></script>
+    <script src='src/teste.js'></script>
+    <!-- <script type="module" src="./src/app.js"></script>
     <script type="module" src="./src/page-1.js"></script>
-    <script type="module" src="./src/page-2.js"></script>
+    <script type="module" src="./src/page-2.js"></script> -->
 </body>
 
 </html>

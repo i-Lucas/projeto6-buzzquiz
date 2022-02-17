@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #FAFAFA;
+}
+
 main {
     padding-left: 8%;
     padding-right: 8%;

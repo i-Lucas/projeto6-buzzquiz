@@ -4,7 +4,7 @@ let question =[];
 let answers = [];
 
 // Ao clicar em um quizz na tela inicial o onclick deve chamar a função getOnlyQuizz(id) e passar o id como parametro
-function getOnlyQuizz(dado){
+function getOnlyQuizz(){
     const promise = axios.get(urlOnlyQuizz + id);
     promise.then(renderizeQuizz);
 }
