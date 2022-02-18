@@ -1,16 +1,23 @@
 const urlOnlyQuizz = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/";
-let id = 2408  ;
+let id = undefined  ;
 let answers = [];
 let data=[];
 let point= 0;
 let range =0, conter =0;
 // Ao clicar em um quizz na tela inicial o onclick deve chamar a função getOnlyQuizz(id) e passar o id como parametro
-function getOnlyQuizz(){
+function getOnlyQuizz(load){
+    id = load
     const promise = axios.get(urlOnlyQuizz + id);
     promise.then(renderizeQuizz);
 }
 
 function renderizeQuizz(load){
+
+    const page1 = document.querySelector('.page-1')
+    const page2 = document.querySelector('.page-2')
+    page1.classList.add('hidden')
+    page2.classList.remove('hidden')
+
     data = load.data;
     const imageQuizz= document.querySelector(".image-logo");
     imageQuizz.style.backgroundImage = `url('${data.image}')`;

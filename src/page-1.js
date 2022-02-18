@@ -22,17 +22,13 @@ function RenderAllQuizzes(quizzes) {
 
     for (let i = 0; i < quizzes.length; i++) {
         allquizzcontainer.innerHTML += `
-            <div class="all-quizz-box" id = "${quizzes[i].id}" onclick="testes(${quizzes[i].id})">
+            <div class="all-quizz-box" id = "${quizzes[i].id}" onclick="getOnlyQuizz(${quizzes[i].id})">
                 <h1 class = 'title'>${quizzes[i].title}</h1>
             </div>
         `
         const allquizzbox = document.getElementById(`${quizzes[i].id}`)
         allquizzbox.style.backgroundImage = `url('${quizzes[i].image}')`
     }
-}
-
-function testes(id) {
-    alert(id)
 }
 
 let currentPage = 1
