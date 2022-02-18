@@ -6,7 +6,7 @@
     align-items: center;
     /* background-color: salmon; */
     padding: 0 20% ;
-    
+    background: #E5E5E5;
 }
 .image-logo{
     position: absolute;
@@ -33,6 +33,8 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 20px;
+    background: #FFFFFF;
+    padding: 10px;
 }
 .quizz-question-title{
     width: 100%;
@@ -58,7 +60,7 @@
     position: relative;
     width: calc(90%/2);
     height: calc(50vw / 4);   
-    margin-bottom: 30px;
+    margin-bottom: 60px;
     /* filter: blur(5px); */
 }
 .image-quizz-box img{
@@ -75,10 +77,58 @@
     font-size: 20px;
     
 }
-.blur{
-    filter: blur(5px);
+.resultPage{
+    margin-top: 40px;
+    height: 430px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 18px;
+    background: #FFFFFF;
+}
+.titleResult{
+    width: 100%;
+    min-height: 99px;
+    max-height: 30%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    align-items: center; 
+    word-break: break-word;
+    background: #EC362D;
+    margin-bottom: 20px;
+}
+.titleResult h1{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 23px;
     color: #FFFFFF;
-    
+    text-align: center;
+}
+.imageResult{
+    width: 45%;
+    height: 100%;
+    margin-right: 5%;
+}
+.imageResult img{
+    width: 100%;
+    background-position: center;
+    background-size: 100% 100%; 
+}
+.textResult{
+    width: 45%;
+    height: 100%;
+    margin-left: 5%;
+}
+.textResult p{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 25px;
+    color: #484848;
 }
 @media (max-width: 600px) {
     .image-logo{
@@ -100,5 +150,17 @@
     .image-quizz-box{
         
         height: calc(38vw / 2);   
+        margin-bottom: 30px;
     }
+    .imageResult{
+        width: 100%;
+        height: 70%;
+        margin-right: 0;
+    }
+    .textResult{
+        width: 100%;
+        height: 70%;
+        margin-left: 0;
+        margin-bottom: 10px;
+    }    
 }    

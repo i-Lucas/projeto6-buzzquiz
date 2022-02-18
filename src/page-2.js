@@ -1,5 +1,5 @@
 const urlOnlyQuizz = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/";
-let id = 2483   ;
+let id = 2408  ;
 let answers = [];
 let data=[];
 let point= 0;
@@ -66,20 +66,43 @@ function selectAnswer(element, question,length,answer){
     if(answer){
       point++;
     }
-    if(conter == range){
-        setEndPage();
-    } 
+    
     setTimeout(() =>{
         if(document.querySelector(`#Q${question+1}`)!=null){
         document.querySelector(`#Q${question+1}`).scrollIntoView(false)  }
     }, 2000);
-    
+    if(conter == range){
+        setEndPage();
+    } 
     console.log(conter);  
 }
 
 function setEndPage(){
+    let level = 0;
     let calc =  Math.round((point*100)/range);
     console.log(calc);
+    const resultPage = document.querySelector(".quizz-questions-container");
+    data.levels.forEach(element=>{ 
+        if(element.minValue <=calc){
+            level++ 
+        }    
+    })
+    resultPage.innerHTML+=`
+    <div class="resultPage">
+        <div class="titleResult">
+            <h1>${calc}% de acerto: ${data.levels[level-1].title}</h1>
+        </div>
+        <div class="imageResult">
+        <img src="${data.levels[level-1].image}" alt=""/>   
+        </div>
+        <div class="textResult">
+        <p>${data.levels[level-1].text}</p>   
+        </div>
+    </div>
+    `
+        
+    
+   
 }
 
 getOnlyQuizz()
