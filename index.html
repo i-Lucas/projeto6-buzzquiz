@@ -24,28 +24,29 @@
 
         <section class='page-1 hidden'>
             <!-- hidden here -->
-            <div class="create-quizz"></div>
-            <div class="user-quizz-container">
-                <div class="user-quizz-box"></div>
-                <div class="user-quizz-box"></div>
-                <div class="user-quizz-box"></div>
-                <div class="user-quizz-box"></div>
-                <div class="user-quizz-box"></div>
-                <div class="user-quizz-box"></div>
-                <div class="user-quizz-box"></div>
-                <div class="user-quizz-box"></div>
-            </div>
-            <div class="all-quizz-container">
-                <!-- <div class="all-quizz-box"></div>
-                <div class="all-quizz-box"></div>
-                <div class="all-quizz-box"></div>
-                <div class="all-quizz-box"></div>
-                <div class="all-quizz-box"></div>
-                <div class="all-quizz-box"></div>
-                <div class="all-quizz-box"></div> -->
-            </div>
+            <section class="page-1-content">
+                <div class="create-quizz-container">
+                    <div class="create-quizz-box">
+                        <h1>Você não criou nenhum<br> quizz ainda :(</h1>
+                        <div class="create-btn"><button onclick="GetUserQuizzData('info')">Criar Quizz</button></div>
+                    </div>
+                </div>
+                <div class="user-quizz-container">
+                    <div class="user-quizz-box"></div>
+                    <div class="user-quizz-box"></div>
+                    <div class="user-quizz-box"></div>
+                    <div class="user-quizz-box"></div>
+                    <div class="user-quizz-box"></div>
+                    <div class="user-quizz-box"></div>
+                    <div class="user-quizz-box"></div>
+                    <div class="user-quizz-box"></div>
+                </div>
+                <div class="all-quizz-container">
+                </div>
+            </section>
         </section>
-        <section class='page-2 '> <!-- hidden here -->
+
+        <section class='page-2 hidden'> <!-- hidden here -->
             <!-- hidden here -->
             <div class='image-logo'></div>
             <section class="quizz-questions-container">
@@ -74,12 +75,12 @@
                     <h1>Comece pelo começo</h1>
                 </div>
                 <div class="quizz-info-input-container">
-                    <input type="text" placeholder="Título do seu quizz">
-                    <input type="text" placeholder="URL da imagem do seu quizz">
-                    <input type="text" placeholder="Quantidade de perguntas do quizz">
-                    <input type="text" placeholder="Quantidade de níveis do quizz">
+                    <input class="user-quizz-title" type="text" placeholder="Título do seu quizz">
+                    <input class="user-quizz-url" type="text" placeholder="URL da imagem do seu quizz">
+                    <input class="user-quizz-questions-amount" type="text" placeholder="Quantidade de perguntas do quizz">
+                    <input class="user-quizz-levels-amount" type="text" placeholder="Quantidade de níveis do quizz">
                     <div class="quizz-info-button-box">
-                        <button>Prosseguir pra criar perguntas</button>
+                        <button onclick="GetUserQuizzData('questions')">Prosseguir pra criar perguntas</button>
                     </div>
                 </div>
             </section>
@@ -89,7 +90,7 @@
                     <h1>Crie suas perguntas</h1>
                 </div>
                 <div class="quizz-questions-input-container">
-                    <div class="quizz-questions-text"><h1>Pergunta 1</h1></div>
+                    <!-- <div class="quizz-questions-text"><h1>Pergunta 1</h1></div>
                     <input type="text" placeholder="Texto da pergunta">
                     <input type="text" placeholder="Cor de fundo da pergunta">
                     <div class="quizz-questions-text"><h1>Resposta correta</h1></div>
@@ -101,18 +102,18 @@
                     <input type="text " placeholder="Resposta incorreta 2">
                     <input type="text" placeholder="URL da imagem 2">
                     <input type="text" placeholder="Resposta incorreta 3">
-                    <input type="text" placeholder="URL da imagem 3">
+                    <input type="text" placeholder="URL da imagem 3"> -->
 
-                    <div class="quizz-question-box">
+                    <!-- <div class="quizz-question-box">
                         <div class="text"> <h1>Pergunta #ID</h1></div>
                         <div class="icon"><ion-icon name="create-outline"></ion-icon></div>
                     </div>
                     <div class="quizz-question-box">
                         <div class="text"> <h1>Pergunta #ID</h1></div>
                         <div class="icon"><ion-icon name="create-outline"></ion-icon></div>
-                    </div>
+                    </div> -->
 
-                    <div class="quizz-question-final-btn"><button>Prosseguir pra criar níveis</button></div>
+                    <!-- <div class="quizz-question-final-btn"><button onclick="GetUserQuizzData('levels')">Prosseguir pra criar níveis</button></div> -->
                 </div>
             </section>
 
@@ -135,7 +136,7 @@
                         <div class="icon"><ion-icon name="create-outline"></ion-icon></div>
                     </div>
 
-                    <div class="quizz-levels-final-btn"><button>Finalizar Quizz</button></div>
+                    <div class="quizz-levels-final-btn"><button onclick="GetUserQuizzData('success')">Finalizar Quizz</button></div>
                 </div>
             </section> <!-- hidden here -->
 
@@ -145,8 +146,8 @@
                 </div>
                 <div class="quizz-success-container">
                     <div class="quizz-success-box"> </div>
-                    <div class="quizz-sucess-btn"><button>Acessar Quizz</button></div>
-                    <div class="quizz-sucess-btn"><button>Voltar pra home</button></div>
+                    <div class="quizz-sucess-btn"><button onclick="GetUserQuizzData('acess')">Acessar Quizz</button></div>
+                    <div class="quizz-sucess-btn"><button onclick="GetUserQuizzData('home')">Voltar pra home</button></div>
                 </div>
                
             </section> <!-- hidden here -->

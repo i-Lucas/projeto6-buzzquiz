@@ -70,8 +70,14 @@ let myQuizz = {
     ]
 }
 
+
+// CreateNewQuizz(myQuizz)
+
 function CreateNewQuizz(quizz) {
     const promise = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizz)
+    promise.then((response) => {
+        console.warn(response)
+    })
     promise.catch((error) => {
         console.error(error)
     })
