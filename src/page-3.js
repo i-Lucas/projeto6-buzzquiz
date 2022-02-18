@@ -1,4 +1,4 @@
-let img = "https://c.tenor.com/7t8foti8FG8AAAAC/loading-screen-cat.gif"
+let img = "https://www.esporteclubebahia.com.br/wp-content/uploads/2020/10/WhatsApp-Image-2020-03-24-at-11.04.46-1-370x250.jpeg"
 
 let myQuizz = {
 
@@ -76,6 +76,3 @@ function CreateNewQuizz(quizz) {
         console.error(error)
     })
 }
-
-// CreateNewQuizz(myQuizz)
-export { CreateNewQuizz, myQuizz }

@@ -1,4 +1,7 @@
-import {getOnlyQuizz} from './page-2.js'
+window.onload = () => {
+
+    GetAllQuizzes()
+}
 
 function GetAllQuizzes() {
 
@@ -18,7 +21,6 @@ function RenderAllQuizzes(quizzes) {
     allquizzcontainer.innerHTML = ''
 
     for (let i = 0; i < quizzes.length; i++) {
-        // console.log(quizzes[i].id, quizzes[i].title, quizzes[i].image)
         allquizzcontainer.innerHTML += `
             <div class="all-quizz-box" id = "${quizzes[i].id}" onclick="testes(${quizzes[i].id})">
                 <h1 class = 'title'>${quizzes[i].title}</h1>
@@ -33,8 +35,3 @@ function testes(id) {
     alert(id)
 }
 
-// exportando a função
-export { GetAllQuizzes }
-
-
-// onclick="getOnlyQuizz('${quizzes[i].id}')">
