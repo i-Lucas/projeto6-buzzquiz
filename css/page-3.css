@@ -334,8 +334,15 @@
 
 /* ------------------------------------------------- */
 
+/* mobile */
+@media (max-width: 700px) {
+    .quizz-info-input-container, .quizz-questions-input-container, .quizz-levels-input-container, .quizz-success-container {
+        width: 90%;
+    }
+}
+
 /* desktop */
-@media (min-width: 900px) {
+@media (min-width: 700px) {
     .quizz-info-title, .quizz-info-input-container, 
     .quizz-questions-title, .quizz-questions-input-container, 
     .quizz-input-title, .quizz-levels-input-container, .quizz-success-container {

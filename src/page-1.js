@@ -22,7 +22,7 @@ function RenderAllQuizzes(quizzes) {
 
     for (let i = 0; i < quizzes.length; i++) {
         allquizzcontainer.innerHTML += `
-            <div class="all-quizz-box" id = "${quizzes[i].id}" onclick="testes(${quizzes[i].id})">
+            <div class="all-quizz-box" id = "${quizzes[i].id}" onclick="getOnlyQuizz(${quizzes[i].id})">
                 <h1 class = 'title'>${quizzes[i].title}</h1>
             </div>
         `
@@ -31,12 +31,10 @@ function RenderAllQuizzes(quizzes) {
     }
 }
 
-function testes(id) {
-    alert(id)
-}
-
 let currentPage = 1
 let numberOfQuestions = 0
+
+let ValidateUserQuizz = false
 
 function GetUserQuizzData(page) {
 
@@ -69,17 +67,21 @@ function GetUserQuizzData(page) {
             quizzInfo.classList.add('hidden')
 
             numberOfQuestions = quizzQuestionsAmount
-            console.log('numero de perguntas ' + numberOfQuestions)
+            // console.log('numero de perguntas ' + numberOfQuestions)
             RenderQuestions(quizzQuestionsAmount, currentPage)
         }
     }
     if (page === 'levels') {
 
-        if (CheckQuestionsQuizzData()) {
+        if(currentPage === numberOfQuestions ) {
+            EditThisQuestion(numberOfQuestions)
+            console.log('Estou na ultima pagina e cliquei no botao')
+        }
+
+        if (ValidateUserQuizz) {
             quizzQuestions.classList.add('hidden')
             quizzLevels.classList.remove('hidden')
         }
-
     }
     if (page === 'success') {
         quizzLevels.classList.add('hidden')
@@ -100,7 +102,7 @@ function GetUserQuizzData(page) {
 
 function RenderQuestions(number, page) {
 
-    console.log(`RenderQuestions? number of questions: ${number} current page: ${page}`)
+    // console.log(`RenderQuestions? number of questions: ${number} current page: ${page}`)
 
     const QuestionsInputContainer = document.querySelector('.quizz-questions-input-container')
     QuestionsInputContainer.innerHTML = `
@@ -157,16 +159,13 @@ function CheckInfoQuizzData(title, url, questions, levels) {
     return true
 }
 
-function CheckQuestionsQuizzData() {
-
-    return false
-}
-
 let GetFormData = []
 
 function EditThisQuestion(number) {
 
-    console.log(`EditThisQuestion ${number}`)
+    if(number === numberOfQuestions) {
+        console.log('estou editando a ultima questao')
+    }
 
     let quizzQuestion = document.getElementById('p1').value
     let quizzQuestionColor = document.getElementById('p2').value
@@ -182,8 +181,7 @@ function EditThisQuestion(number) {
     let quizzIncorrectAnswerURL2 = document.getElementById('ii2').value
     let quizzIncorrectAnswerURL3 = document.getElementById('iii2').value
 
-    
-    console.log(currentPage)
+    // console.log(currentPage)
 
     GetFormData[currentPage - 1] = {
         quizzQuestion: quizzQuestion,
@@ -198,8 +196,37 @@ function EditThisQuestion(number) {
         quizzIncorrectAnswerURL3: quizzIncorrectAnswerURL3
     };
 
-    console.log(GetFormData)
+    // antes de editar a proxima pagina, checa se a pagina atual esta preenchida corretamente
+    if (CheckQuestionsQuizzData(currentPage - 1, GetFormData)) {
 
-    currentPage = number
-    RenderQuestions(numberOfQuestions, currentPage)
+        console.log(GetFormData)
+        currentPage = number
+        RenderQuestions(numberOfQuestions, currentPage)
+    }
 }
+
+function CheckQuestionsQuizzData(page, array) {
+
+    if (array[page] === null || array[page] === undefined) {
+        alert('Voce precisa preencher as informacoes de todas as perguntas antes de continuar')
+        return false
+    }
+    else {
+
+        if (array[page].quizzQuestion === '') {
+            return alert(`Voce precisa preencher o titulo da pergunta ${page + 1} para prosseguir`)
+        }
+        if (array[page].quizzQuestionColor === '') {
+            return alert(`Voce precisa definir a cor da pergunta ${page + 1} para prosseguir`)
+        }
+    }
+
+    if(currentPage === numberOfQuestions ) {
+        console.log('Estou na ultima pagina e validei o quizz como true')
+        ValidateUserQuizz = true
+    }
+
+    return true
+}
+
+// onclick="CheckUserAllQuestionsData()"
