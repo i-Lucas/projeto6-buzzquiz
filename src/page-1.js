@@ -33,8 +33,8 @@ function RenderAllQuizzes(quizzes) {
 
 let currentPage = 1
 let numberOfQuestions = 0
-
 let ValidateUserQuizz = false
+let numberOfLevels = 0
 
 function GetUserQuizzData(page) {
 
@@ -60,38 +60,40 @@ function GetUserQuizzData(page) {
 
         quizzQuestionsAmount = parseInt(quizzQuestionsAmount)
         quizzLevelsAmount = parseInt(quizzLevelsAmount)
-
-        if (CheckInfoQuizzData(quizzTitle, quizzUrl, quizzQuestionsAmount, quizzLevelsAmount)) {
-
+        
+        if (CheckInfoQuizzData(quizzTitle, quizzUrl, quizzQuestionsAmount, quizzLevelsAmount)) {            
             quizzQuestions.classList.remove('hidden')
             quizzInfo.classList.add('hidden')
-
             numberOfQuestions = quizzQuestionsAmount
-            // console.log('numero de perguntas ' + numberOfQuestions)
             RenderQuestions(quizzQuestionsAmount, currentPage)
         }
     }
     if (page === 'levels') {
 
-        if(currentPage === numberOfQuestions ) {
+        if (currentPage === numberOfQuestions) {
             EditThisQuestion(numberOfQuestions)
-            console.log('Estou na ultima pagina e cliquei no botao')
+            // caso o usuario esteja na ultima pagina de perguntas e clique no botao
+            // entao verificamos se ele pode prosseguir
         }
 
         if (ValidateUserQuizz) {
             quizzQuestions.classList.add('hidden')
             quizzLevels.classList.remove('hidden')
+            currentPage = 1
+            RenderLevels(currentPage, numberOfLevels)
         }
     }
     if (page === 'success') {
         quizzLevels.classList.add('hidden')
         quizzSuccess.classList.remove('hidden')
+
+        // post para obter id do quizz feito pelo usuario
     }
     if (page === 'acess') {
         page3.classList.add('hidden')
         page2.classList.remove('hidden')
 
-        // getOnlyQuizz(myQuizz)
+        // getOnlyQuizz( ID DO QUIZZ )
     }
     if (page === 'home') {
         page3.classList.add('hidden')
@@ -101,8 +103,6 @@ function GetUserQuizzData(page) {
 }
 
 function RenderQuestions(number, page) {
-
-    // console.log(`RenderQuestions? number of questions: ${number} current page: ${page}`)
 
     const QuestionsInputContainer = document.querySelector('.quizz-questions-input-container')
     QuestionsInputContainer.innerHTML = `
@@ -129,33 +129,29 @@ function RenderQuestions(number, page) {
                 </div>`
         }
     }
-
     QuestionsInputContainer.innerHTML += `
         <div class="quizz-question-final-btn">
             <button onclick="GetUserQuizzData('levels')">Prosseguir pra criar níveis</button>
         </div>`
 }
 
-const CheckImageFormat = (url) => url.includes('png') || url.includes('jpg') || url.includes('gif') || url.includes('http') ? true : false
-
 function CheckInfoQuizzData(title, url, questions, levels) {
 
-    if (title.length < 5) {
-        return alert('O titulo precisa ter no minimo 5 caracteres')
+    if (title.length < 20 || title.length > 60) {
+        return alert('O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres')
     }
-
-    if (!CheckImageFormat(url)) {
-        return alert('Formato de imagem da url nao aceito')
+    if (!CheckURL(url)) {
+        // if (url.includes('http://') || url.includes('https://') === false) {
+        return alert('A URL da imagem deve ter formato de URL')
     }
-
     if (questions < 3 || isNaN(questions)) {
-        return alert('A quantidade minima de perguntas e 3')
+        return alert('A quantidade de perguntas deve ser no mínimo 3')
     }
-
-    if (levels < 3 || isNaN(levels)) {
-        return alert('A quantidade minima de niveis e 3')
+    if (levels < 2 || isNaN(levels)) {
+        return alert('A quantidade de niveis deve ser no mínimo 2')
     }
-
+    numberOfLevels = levels
+    console.log(numberOfLevels)
     return true
 }
 
@@ -163,9 +159,9 @@ let GetFormData = []
 
 function EditThisQuestion(number) {
 
-    if(number === numberOfQuestions) {
-        console.log('estou editando a ultima questao')
-    }
+    // if(number === numberOfQuestions) {
+    //     console.log('estou editando a ultima questao')
+    // }
 
     let quizzQuestion = document.getElementById('p1').value
     let quizzQuestionColor = document.getElementById('p2').value
@@ -181,8 +177,6 @@ function EditThisQuestion(number) {
     let quizzIncorrectAnswerURL2 = document.getElementById('ii2').value
     let quizzIncorrectAnswerURL3 = document.getElementById('iii2').value
 
-    // console.log(currentPage)
-
     GetFormData[currentPage - 1] = {
         quizzQuestion: quizzQuestion,
         quizzQuestionColor: quizzQuestionColor,
@@ -194,12 +188,9 @@ function EditThisQuestion(number) {
         quizzIncorrectAnswerURL1: quizzIncorrectAnswerURL1,
         quizzIncorrectAnswerURL2: quizzIncorrectAnswerURL2,
         quizzIncorrectAnswerURL3: quizzIncorrectAnswerURL3
-    };
-
+    }
     // antes de editar a proxima pagina, checa se a pagina atual esta preenchida corretamente
     if (CheckQuestionsQuizzData(currentPage - 1, GetFormData)) {
-
-        console.log(GetFormData)
         currentPage = number
         RenderQuestions(numberOfQuestions, currentPage)
     }
@@ -212,21 +203,114 @@ function CheckQuestionsQuizzData(page, array) {
         return false
     }
     else {
-
-        if (array[page].quizzQuestion === '') {
-            return alert(`Voce precisa preencher o titulo da pergunta ${page + 1} para prosseguir`)
+        if (array[page].quizzQuestion === '' || array[page].quizzQuestion.length < 20) {
+            return alert(`O texto da pergunta ${page + 1} deve ter no mínimo 20 caracteres`)
         }
-        if (array[page].quizzQuestionColor === '') {
-            return alert(`Voce precisa definir a cor da pergunta ${page + 1} para prosseguir`)
+        if (array[page].quizzQuestionColor === '' || array[page].quizzQuestionColor.includes('#') === false) {
+            return alert(`A cor de fundo da pergunta ${page + 1} deve ser uma cor em hexadecimal comecando com #`)
+        }
+        if (array[page].quizzRightAnswer === '') {
+            return alert(`A resposta da pergunta ${page + 1} nao pode ficar em branco`)
+        }
+        if (!CheckURL(array[page].quizzRightAnswerURL)) {
+            return alert(`A imagem da resposta da pergunta ${page + 1} deve ter formato de URL`)
+        }
+        if (array[page].quizzIncorrectAnswer1 === '') {
+            return alert(`A pergunta ${page + 1} deve ter no mínimo uma resposta errada`)
         }
     }
-
-    if(currentPage === numberOfQuestions ) {
-        console.log('Estou na ultima pagina e validei o quizz como true')
+    if (currentPage === numberOfQuestions) {
+        // caso o usuario esteja na ultima pagina podera prosseguir
         ValidateUserQuizz = true
     }
-
     return true
 }
 
-// onclick="CheckUserAllQuestionsData()"
+let currentLevel = 1
+
+function RenderLevels(page, number) {
+
+    const LevelsInputContainer = document.querySelector('.quizz-levels-input-container')
+    LevelsInputContainer.innerHTML = `
+    <div class="quizz-levels-text"><h1>Nivel ${currentLevel}</h1></div>
+    <input type="text" id = "x1" placeholder="Título do nível">
+    <input type="text" id = "x2" placeholder="% de acerto mínima">
+    <input type="text" id = "x3" placeholder="URL da imagem do nível">
+    <input type="text" id = "x4" placeholder="Descrição do nível">`
+
+    for (let i = 1; i <= number; i++) {
+        if (page !== i) {
+            LevelsInputContainer.innerHTML += `
+            <div class="quizz-levels-box" id = '${i}'>
+            <div class="text"> <h1>Nivel ${i}</h1></div>
+            <div class="icon" onclick="EditThisLevel(${i})"><ion-icon name="create-outline"></ion-icon></div>
+            </div>`
+        }
+    }
+    LevelsInputContainer.innerHTML += `
+        <div class="quizz-levels-final-btn"><button onclick="GetUserQuizzData('success')">Finalizar Quizz</button></div>`
+}
+
+let GetFormLevel = []
+
+function EditThisLevel(number) {
+
+    // if(number === numberOfQuestions) {
+    //     console.log('estou editando a ultima questao')
+    // }
+
+    let quizzLevel = document.getElementById('x1').value
+    let LevelPorcent = document.getElementById('x2').value
+
+    let LevelURL = document.getElementById('x3').value
+    let LevelDescription = document.getElementById('x4').value
+
+    GetFormLevel[currentPage - 1] = {
+        quizzLevel: quizzLevel,
+        LevelPorcent: LevelPorcent,
+        LevelURL: LevelURL,
+        LevelDescription: LevelDescription
+    }
+    // antes de editar a proxima pagina, checa se a pagina atual esta preenchida corretamente
+    if (CheckLevelQuizzData(currentPage - 1, GetFormLevel)) {
+        currentPage = number
+        RenderLevels(currentPage, numberOfLevels )
+    }
+}
+
+let ValidateUserQuizzLevel = false
+
+function CheckLevelQuizzData(page, array) {
+
+    console.log('funcao CheckLevelQuizzData call')
+    if (array[page] === null || array[page] === undefined) {
+        alert('Voce precisa preencher as informacoes de todas os niveis antes de continuar')
+        return false
+    }
+    else {
+        if (array[page].quizzLevel === '' || array[page].quizzLevel.length < 10) {
+            return alert(`O texto do nivel ${page + 1} deve ter no mínimo 10 caracteres`)
+        }
+        if (array[page].LevelPorcent === '' || array[page].LevelPorcent < 0 || array[page].LevelPorcent > 100 ) {
+            return alert(`A porcentagem de acerto minimo do nivel ${page + 1} deve ser entre 0 e 100`)
+        }
+        if (!CheckURL(array[page].LevelURL)) {
+            return alert(`A imagem do nivel ${page + 1} deve ter formato de URL`)
+        }
+        if (array[page].LevelDescription === '' || array[page].LevelDescription.length < 30) {
+            return alert(`A descrição do nivel ${page + 1} deve ter no mínimo 30 caracteres`)
+        }
+        if (array[page].LevelDescription !== 0) {
+            return alert(`É obrigatório existir pelo menos um nível cuja % de acerto mínima seja 0%`)
+        }
+    }
+    if (currentPage === numberOfLevels) {
+        // caso o usuario esteja na ultima pagina podera prosseguir
+        ValidateUserQuizzLevel = true
+    }
+    return true
+}
+
+
+
+const CheckURL = (url) => url.includes('http://') || url.includes('https://') ? true : false
