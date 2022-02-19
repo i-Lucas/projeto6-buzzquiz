@@ -79,7 +79,7 @@
 }
 .resultPage{
     margin-top: 40px;
-    height: 430px;
+    /* height: 330px; */
     width: 100%;
     display: flex;
     flex-wrap: wrap;

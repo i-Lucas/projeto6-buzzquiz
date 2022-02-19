@@ -107,7 +107,7 @@ function setEndPage(){
         </div>
     </div>
     `
-        
+     setTimeout(()=>{resultPage.scrollIntoView(false) }, 2000)   
     
    
 }
