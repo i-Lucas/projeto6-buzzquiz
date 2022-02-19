@@ -60,8 +60,8 @@ function GetUserQuizzData(page) {
 
         quizzQuestionsAmount = parseInt(quizzQuestionsAmount)
         quizzLevelsAmount = parseInt(quizzLevelsAmount)
-        
-        if (CheckInfoQuizzData(quizzTitle, quizzUrl, quizzQuestionsAmount, quizzLevelsAmount)) {            
+
+        if (CheckInfoQuizzData(quizzTitle, quizzUrl, quizzQuestionsAmount, quizzLevelsAmount)) {
             quizzQuestions.classList.remove('hidden')
             quizzInfo.classList.add('hidden')
             numberOfQuestions = quizzQuestionsAmount
@@ -75,7 +75,6 @@ function GetUserQuizzData(page) {
             // caso o usuario esteja na ultima pagina de perguntas e clique no botao
             // entao verificamos se ele pode prosseguir
         }
-
         if (ValidateUserQuizz) {
             quizzQuestions.classList.add('hidden')
             quizzLevels.classList.remove('hidden')
@@ -84,10 +83,15 @@ function GetUserQuizzData(page) {
         }
     }
     if (page === 'success') {
-        quizzLevels.classList.add('hidden')
-        quizzSuccess.classList.remove('hidden')
 
-        // post para obter id do quizz feito pelo usuario
+        if (currentPage === numberOfLevels) {
+            EditThisLevel(numberOfLevels)
+        }
+        if (ValidateUserQuizzLevel) {
+            quizzLevels.classList.add('hidden')
+            quizzSuccess.classList.remove('hidden')
+            // post para obter id do quizz feito pelo usuario
+        }
     }
     if (page === 'acess') {
         page3.classList.add('hidden')
@@ -254,11 +258,6 @@ function RenderLevels(page, number) {
 let GetFormLevel = []
 
 function EditThisLevel(number) {
-
-    // if(number === numberOfQuestions) {
-    //     console.log('estou editando a ultima questao')
-    // }
-
     let quizzLevel = document.getElementById('x1').value
     let LevelPorcent = document.getElementById('x2').value
 
@@ -274,14 +273,14 @@ function EditThisLevel(number) {
     // antes de editar a proxima pagina, checa se a pagina atual esta preenchida corretamente
     if (CheckLevelQuizzData(currentPage - 1, GetFormLevel)) {
         currentPage = number
-        RenderLevels(currentPage, numberOfLevels )
+        currentLevel = number
+        RenderLevels(currentLevel, numberOfLevels)
     }
 }
 
 let ValidateUserQuizzLevel = false
 
 function CheckLevelQuizzData(page, array) {
-
     console.log('funcao CheckLevelQuizzData call')
     if (array[page] === null || array[page] === undefined) {
         alert('Voce precisa preencher as informacoes de todas os niveis antes de continuar')
@@ -291,7 +290,7 @@ function CheckLevelQuizzData(page, array) {
         if (array[page].quizzLevel === '' || array[page].quizzLevel.length < 10) {
             return alert(`O texto do nivel ${page + 1} deve ter no mínimo 10 caracteres`)
         }
-        if (array[page].LevelPorcent === '' || array[page].LevelPorcent < 0 || array[page].LevelPorcent > 100 ) {
+        if (array[page].LevelPorcent === '' || array[page].LevelPorcent < 0 || array[page].LevelPorcent > 100) {
             return alert(`A porcentagem de acerto minimo do nivel ${page + 1} deve ser entre 0 e 100`)
         }
         if (!CheckURL(array[page].LevelURL)) {
@@ -300,17 +299,11 @@ function CheckLevelQuizzData(page, array) {
         if (array[page].LevelDescription === '' || array[page].LevelDescription.length < 30) {
             return alert(`A descrição do nivel ${page + 1} deve ter no mínimo 30 caracteres`)
         }
-        if (array[page].LevelDescription !== 0) {
-            return alert(`É obrigatório existir pelo menos um nível cuja % de acerto mínima seja 0%`)
-        }
     }
     if (currentPage === numberOfLevels) {
-        // caso o usuario esteja na ultima pagina podera prosseguir
         ValidateUserQuizzLevel = true
     }
     return true
 }
-
-
 
 const CheckURL = (url) => url.includes('http://') || url.includes('https://') ? true : false
