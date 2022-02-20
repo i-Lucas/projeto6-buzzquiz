@@ -2,7 +2,6 @@ let TOTAL_USER_QUIZZ = 0
 
 window.onload = () => {
 
-    GetAllQuizzes()
     CheckUserLocalStorage()
 }
 
@@ -100,6 +99,7 @@ function GetUserQuizzData(page) {
             // ao criar um quizz, o armazenamento local do usuario tera essa informacao
             window.localStorage.setItem('UserCreateQuizz', 'true');
             GenerateUserRequestPost(numberOfQuestions, numberOfLevels)
+            document.querySelector(".quizz-success-box").style.backgroundImage = `url('${quizzUrl}')`
         }
     }
     if (page === 'acess') {
@@ -216,7 +216,7 @@ function CheckQuestionsQuizzData(page, array) {
         if (array[page].quizzQuestion === '' || array[page].quizzQuestion.length < 20) {
             return alert(`O texto da pergunta ${page + 1} deve ter no mínimo 20 caracteres`)
         }
-        if (array[page].quizzQuestionColor === '' || array[page].quizzQuestionColor.includes('#') === false) {
+        if (CheckHexa(array[page].quizzQuestionColor)) {
             return alert(`A cor de fundo da pergunta ${page + 1} deve ser uma cor em hexadecimal comecando com #`)
         }
         if (array[page].quizzRightAnswer === '') {
@@ -225,8 +225,23 @@ function CheckQuestionsQuizzData(page, array) {
         if (!CheckURL(array[page].quizzRightAnswerURL)) {
             return alert(`A imagem da resposta da pergunta ${page + 1} deve ter formato de URL`)
         }
+
         if (array[page].quizzIncorrectAnswer1 === '') {
             return alert(`A pergunta ${page + 1} deve ter no mínimo uma resposta errada`)
+        }
+        if (!CheckURL(array[page].quizzIncorrectAnswerURL1)) {
+            return alert(`A imagem da resposta incorreta da pergunta ${page + 1} deve ter formato de URL`)
+        }
+
+        if (array[page].quizzIncorrectAnswer2 !== "") { 
+            if (!CheckURL(array[page].quizzIncorrectAnswerURL2)) {
+                return alert(`A imagem da resposta incorreta 2 da pergunta ${page + 1} deve ter formato de URL`)
+            }
+        }
+        if(array[page].quizzIncorrectAnswer3 !== "" ) {
+            if (!CheckURL(array[page].quizzIncorrectAnswerURL3)) {
+                return alert(`A imagem da resposta incorreta 3 da pergunta ${page + 1} deve ter formato de URL`)
+            }
         }
     }
     if (currentPage === numberOfQuestions) {
@@ -235,6 +250,8 @@ function CheckQuestionsQuizzData(page, array) {
     }
     return true
 }
+
+const CheckHexa = (hex) => hex === '' || hex.includes('#') === false || hex.length !== 7 ? true : false
 
 let currentLevel = 1
 
@@ -333,13 +350,12 @@ function CheckUserLocalStorage() {
             RenderUserQuizz(AllUserQuizz[i])
         }
     }
+
+    GetAllQuizzes()
 }
 
 function GenerateUserRequestPost(questions, levels) {
 
-    // infelizmente o objeto gerado por esse metodo esta causando um erro na API
-    // temos que consertar 
-    // ------------------------------------------- >>
     let arrayQuestions = []
     let arrayLevels = []
     let userQuizzOBJ = {}
@@ -351,16 +367,12 @@ function GenerateUserRequestPost(questions, levels) {
     for (let i = 0; i < levels; i++) {
         arrayLevels.push(createNewLevel(i));
     }
-    
+
     userQuizzOBJ.levels = arrayLevels
     userQuizzOBJ.questions = arrayQuestions
-    
     console.log(userQuizzOBJ);
-     let requestUserQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', userQuizzOBJ)
-    // ------------------------------------------- >>
 
-    // observe que eu passei o objeto (testes) na API
-    //let requestUserQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', testes)
+    let requestUserQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', userQuizzOBJ)
 
     requestUserQuizz.then((response) => {
         TOTAL_USER_QUIZZ++
@@ -371,6 +383,14 @@ function GenerateUserRequestPost(questions, levels) {
         // obtendo o ID do Quizz criado pra poder acessa-lo
         GetThisQuizzID_ = response.data.id
         RenderUserQuizz(response.data.id)
+        
+        document.querySelector(".quizz-success-box").setAttribute('onclick', `getOnlyQuizz(${response.data.id})`)
+        console.log('opa')
+    })
+
+    requestUserQuizz.catch((error) => {
+        console.log('falha na criacao do quizz')
+        console.log(error)
     })
 }
 
@@ -388,86 +408,13 @@ function RenderUserQuizz(idQuizz) {
         console.log(`quizz ${idQuizz} renderizou`)
 
         document.querySelector('.user-quizz-container').innerHTML += `
-        <div class="all-quizz-box" id = "${idQuizz}" onclick="getOnlyQuizz(${idQuizz})">
+        <div class="all-quizz-box" id = "${idQuizz}" onclick="getOnlyQuizz(${idQuizz})")>
         <h1 class = 'title'>${GetTitle_}</h1> </div>`
+
+        const userBox = document.getElementById(`${idQuizz}`)
+        userBox.style.backgroundImage = `url('${response.data.image}')`
     })
 }
-
-// esse objeto eh o mesmo usado no exemplo do site da API
-// passando esse objeto da certo !
-// precisamos encontrar uma forma de passar esse objeto dinamicamente
-let testes = {
-    title: "Deu certo ! :)",
-    image: "https://cidadeolimpica.com.br/wp-content/uploads/2020/09/papel-parede-bahia-pc7-1024x613.jpeg",
-    questions: [
-        {
-            title: "Título da pergunta 1",
-            color: "#123456",
-            answers: [
-                {
-                    text: "Texto da resposta 1",
-                    image: "https://http.cat/411.jpg",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Texto da resposta 2",
-                    image: "https://http.cat/412.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        },
-        {
-            title: "Título da pergunta 2",
-            color: "#123456",
-            answers: [
-                {
-                    text: "Texto da resposta 1",
-                    image: "https://http.cat/411.jpg",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Texto da resposta 2",
-                    image: "https://http.cat/412.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        },
-        {
-            title: "Título da pergunta 3",
-            color: "#123456",
-            answers: [
-                {
-                    text: "Texto da resposta 1",
-                    image: "https://http.cat/411.jpg",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Texto da resposta 2",
-                    image: "https://http.cat/412.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        }
-    ],
-    levels: [
-        {
-            title: "Título do nível 1",
-            image: "https://http.cat/411.jpg",
-            text: "Descrição do nível 1",
-            minValue: 0
-        },
-        {
-            title: "Título do nível 2",
-            image: "https://http.cat/412.jpg",
-            text: "Descrição do nível 2",
-            minValue: 50
-        }
-    ]
-}
-
-// esssa funcao esta criando o array dinamicamente, porem ao passar o objeto na API ela retorna um erro 422
-// ou seja, a API nao esta conseguindo processar os dados. Precisamos verificar se o objeto gerado por esse metodo
-// e igual ao objeto que a API retorna na lista de quizzes
 
 function createNewQuestion(index) {
     const newDataQuestion = {

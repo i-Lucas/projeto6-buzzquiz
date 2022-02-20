@@ -6,6 +6,8 @@ let point= 0;
 let range =0, conter =0;
 // Ao clicar em um quizz na tela inicial o onclick deve chamar a função getOnlyQuizz(id) e passar o id como parametro
 function getOnlyQuizz(load){
+    const page3 = document.querySelector('.page-3')
+    page3.classList.add('hidden')
     id = load
     const promise = axios.get(urlOnlyQuizz + id);
     promise.then(renderizeQuizz);
