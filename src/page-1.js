@@ -1,6 +1,6 @@
 window.onload = () => {
     getDataQuizz()
-    // GetAllQuizzes()
+    //GetAllQuizzes()
 }
 let quizzTitle;
 let quizzUrl;
@@ -313,12 +313,3 @@ const CheckURL = (url) => url.includes('http://') || url.includes('https://') ? 
 // commit debug
 
 
-function RenderUserQuizz(idQuizz) {
-    const userQuizzContainer = document.querySelector('.user-quizz-container')
-    userQuizzContainer.innerHTML = ''
-    for(let i=0; i < dataId.length; i++) {
-        userQuizzContainer.innerHTML += `
-            <div class="user-quizz-box" id ="${idQuizz}"></div>
-        `
-    }
-}

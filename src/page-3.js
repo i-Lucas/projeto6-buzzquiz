@@ -94,12 +94,32 @@ function getDataQuizz(){
     dataId = JSON.parse(dataIdString);
     const dataKeyString = localStorage.getItem("key");
     dataKey = JSON.parse(dataKeyString);
+    if(dataId.length != 0){
+        document.querySelector('.user-quizz-container').classList.remove("hidden");
+        document.querySelector('.create-quizz-container').classList.add("hidden");
+        RenderUserQuizz(dataId);
+    }else{
+        document.querySelector('.user-quizz-container').classList.add("hidden");
+        document.querySelector('.create-quizz-container').classList.remove("hidden");  
+    }
+    
     GetAllQuizzes()
 }
 function setImageQuizz(){
     const element = document.querySelector(".quizz-success-box").style.backgroundImage = `url('${quizzUrl}')`;
 }
 
+function RenderUserQuizz(idQuizz) {
+    const userQuizzContainer = document.querySelector('.user-quizz-container')
+    userQuizzContainer.innerHTML = ''
+    for(let i=0; i < dataId.length; i++) {
+        userQuizzContainer.innerHTML += `
+        <div class="all-quizz-box" id = "${dataId[i]}" onclick="getOnlyQuizz(${dataId[i]})">
+            <h1 class = 'title'>teste</h1>
+        </div>
+    `
+    }
+}
   // let result ={
     //     title:quizzTitle, 
     //     image:"",
