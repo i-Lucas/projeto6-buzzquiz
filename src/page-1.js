@@ -311,3 +311,14 @@ function CheckLevelQuizzData(page, array) {
 const CheckURL = (url) => url.includes('http://') || url.includes('https://') ? true : false
 
 // commit debug
+
+
+function RenderUserQuizz(idQuizz) {
+    const userQuizzContainer = document.querySelector('.user-quizz-container')
+    userQuizzContainer.innerHTML = ''
+    for(let i=0; i < dataId.length; i++) {
+        userQuizzContainer.innerHTML += `
+            <div class="user-quizz-box" id ="${idQuizz}"></div>
+        `
+    }
+}
