@@ -40,7 +40,8 @@ let numberOfQuestions = 0
 let ValidateUserQuizz = false
 let numberOfLevels = 0
 let GetThisQuizzID_ = undefined
-
+let quizzUrl;
+let quizzTitle;
 function GetUserQuizzData(page) {
 
     const page1 = document.querySelector('.page-1')
@@ -342,22 +343,24 @@ function GenerateUserRequestPost(questions, levels) {
     let arrayQuestions = []
     let arrayLevels = []
     let userQuizzOBJ = {}
-
+    userQuizzOBJ.title = quizzTitle;
+    userQuizzOBJ.image = quizzUrl;
     for (let i = 0; i < questions; i++) {
         arrayQuestions.push(createNewQuestion(i));
     }
     for (let i = 0; i < levels; i++) {
         arrayLevels.push(createNewLevel(i));
     }
-
-    userQuizzOBJ.questions = arrayQuestions
+    
     userQuizzOBJ.levels = arrayLevels
-
-    // let requestUserQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', userQuizzOBJ)
+    userQuizzOBJ.questions = arrayQuestions
+    
+    console.log(userQuizzOBJ);
+     let requestUserQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', userQuizzOBJ)
     // ------------------------------------------- >>
 
     // observe que eu passei o objeto (testes) na API
-    let requestUserQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', testes)
+    //let requestUserQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', testes)
 
     requestUserQuizz.then((response) => {
         TOTAL_USER_QUIZZ++
