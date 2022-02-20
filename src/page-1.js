@@ -20,7 +20,8 @@ function RenderAllQuizzes(quizzes) {
 
     const allquizzcontainer = document.querySelector('.all-quizz-container')
     allquizzcontainer.innerHTML = ''
-
+    
+     
     for (let i = 0; i < quizzes.length; i++) {
         allquizzcontainer.innerHTML += `
             <div class="all-quizz-box" id = "${quizzes[i].id}" onclick="getOnlyQuizz(${quizzes[i].id})">

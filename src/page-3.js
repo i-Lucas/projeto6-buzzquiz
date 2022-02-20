@@ -96,10 +96,14 @@ function getDataQuizz(){
     dataKey = JSON.parse(dataKeyString);
     if(dataId.length != 0){
         document.querySelector('.user-quizz-container').classList.remove("hidden");
+        document.querySelector('.userQuizzTitle').classList.remove("hidden");
+        document.querySelector('.buttonQuizzTitle').classList.remove("hidden");
         document.querySelector('.create-quizz-container').classList.add("hidden");
         RenderUserQuizz(dataId);
     }else{
         document.querySelector('.user-quizz-container').classList.add("hidden");
+        document.querySelector('.userQuizzTitle').classList.add("hidden");
+        document.querySelector('.buttonQuizzTitle').classList.add("hidden");
         document.querySelector('.create-quizz-container').classList.remove("hidden");  
     }
     
@@ -113,50 +117,13 @@ function RenderUserQuizz(idQuizz) {
     const userQuizzContainer = document.querySelector('.user-quizz-container')
     userQuizzContainer.innerHTML = ''
     for(let i=0; i < dataId.length; i++) {
+        const promise = axios.get(urlOnlyQuizz + dataId[i]);
+    promise.then((response) => {
         userQuizzContainer.innerHTML += `
-        <div class="all-quizz-box" id = "${dataId[i]}" onclick="getOnlyQuizz(${dataId[i]})">
-            <h1 class = 'title'>teste</h1>
+        
+        <div class="all-quizz-box" id = "${dataId[i]}" onclick="getOnlyQuizz(${dataId[i]})" style="url('${response.data.image}')">
+            <h1 class = 'title'>${response.data.title}</h1>
         </div>
-    `
+    `});
     }
 }
-  // let result ={
-    //     title:quizzTitle, 
-    //     image:"",
-    //     questions:[
-    //         {answers:[
-    //             {
-    //                 text:" ",
-    //                 image:"",
-    //                 isCorrectAnswer: true
-    //             }
-    //         ]
-
-    //         }
-    //     ]
-    // }
-   
-    //  for(let i =0; i < numberOfQuestions; i++){
-        
-    //     // resposta 0 da perguntao
-    //     result.questions[i].answers[0].text=GetFormData.quizzRightAnswer;
-    //     result.questions[i].answers[0].image=GetFormData.quizzRightAnswerURL;
-    //     result.questions[i].answers[0].isCorrectAnswer= true;
-    //     // resposta 1 da pergunta
-    //     result.questions[i].answers[1].text=GetFormData.quizzIncorrectAnswer1;
-    //     result.questions[i].answers[1].image=GetFormData.quizzIncorrectAnswerURL1;
-    //     result.questions[i].answers[1].isCorrectAnswer=false;
-    //     // resposta 2 da pergunta
-    //     if(GetFormData.quizzIncorrectAnswer2 != ""){
-    //         result.questions[i].answers[2].text=GetFormData.quizzIncorrectAnswer2;
-    //         result.questions[i].answers[2].image=GetFormData.quizzIncorrectAnswerURL2;
-    //         result.questions[i].answers[2].isCorrectAnswer=false;
-    //     }
-    //     // resposta 3 da pergunta
-    //     if(GetFormData.quizzIncorrectAnswer3 != ""){
-    //         result.questions[i].answers[3].text=GetFormData.quizzIncorrectAnswer3;
-    //         result.questions[i].answers[3].image=GetFormData.quizzIncorrectAnswerURL2;
-    //         result.questions[i].answers[3].isCorrectAnswer=false;
-    //     }
-    // }   
-      
