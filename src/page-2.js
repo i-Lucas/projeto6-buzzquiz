@@ -20,6 +20,7 @@ function renderizeQuizz(load){
 
     data = load.data;
     const imageQuizz= document.querySelector(".image-logo");
+    imageQuizz.scrollIntoView(false);
     imageQuizz.style.backgroundImage = `url('${data.image}')`;
     const questionsQuizz = document.querySelector(".quizz-questions-container");
     range = data.questions.length;
@@ -106,12 +107,31 @@ function setEndPage(){
         <p>${data.levels[level-1].text}</p>   
         </div>
     </div>
+    <button class = "reset" onclick = "reset()">Reiniciar Quizz</button>
+    <button class = "home" onclick = "goHome()">Voltar para home</button>
     `
      setTimeout(()=>{resultPage.scrollIntoView(false) }, 2000)   
     
    
 }
-
-getOnlyQuizz()
-// export { getOnlyQuizz}
+function reset(){
+    answers = [];
+    data=[];
+    point= 0;
+    range =0;
+    conter =0;
+    getOnlyQuizz(id);
+}
+function goHome(){
+    answers = [];
+    data=[];
+    point= 0;
+    range =0;
+    conter =0;
+    const page1 = document.querySelector('.page-1')
+    const page2 = document.querySelector('.page-2')
+    page2.classList.add('hidden')
+    page1.classList.remove('hidden')
+   
+}
 

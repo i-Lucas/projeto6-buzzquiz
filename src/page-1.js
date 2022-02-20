@@ -1,8 +1,9 @@
 window.onload = () => {
-
-    GetAllQuizzes()
+    getDataQuizz()
+    // GetAllQuizzes()
 }
-
+let quizzTitle;
+let quizzUrl;
 function GetAllQuizzes() {
 
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
@@ -53,8 +54,8 @@ function GetUserQuizzData(page) {
     }
     if (page === 'questions') {
 
-        let quizzTitle = document.querySelector('.user-quizz-title').value
-        let quizzUrl = document.querySelector('.user-quizz-url').value
+         quizzTitle = document.querySelector('.user-quizz-title').value
+        quizzUrl = document.querySelector('.user-quizz-url').value
         let quizzQuestionsAmount = document.querySelector('.user-quizz-questions-amount').value
         let quizzLevelsAmount = document.querySelector('.user-quizz-levels-amount').value
 
@@ -90,19 +91,20 @@ function GetUserQuizzData(page) {
         if (ValidateUserQuizzLevel) {
             quizzLevels.classList.add('hidden')
             quizzSuccess.classList.remove('hidden')
-            // post para obter id do quizz feito pelo usuario
+            CreateNewQuizz();
         }
     }
     if (page === 'acess') {
         page3.classList.add('hidden')
         page2.classList.remove('hidden')
 
-        // getOnlyQuizz( ID DO QUIZZ )
+         getOnlyQuizz(id)
     }
     if (page === 'home') {
         page3.classList.add('hidden')
         quizzSuccess.classList.add('hidden')
         page1.classList.remove('hidden')
+        getDataQuizz();
     }
 }
 
