@@ -1,84 +1,142 @@
-let img = "https://www.esporteclubebahia.com.br/wp-content/uploads/2020/10/WhatsApp-Image-2020-03-24-at-11.04.46-1-370x250.jpeg"
-
-let myQuizz = {
-
-    title: "Título do quizz",
-    image: `${img}`,
-    questions: [
-        {
-            title: "Título da pergunta 1",
-            color: "#123456",
-            answers: [
-                {
-                    text: "Texto da resposta 1",
-                    image: "https://http.cat/411.jpg",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Texto da resposta 2",
-                    image: "https://http.cat/412.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        },
-        {
-            title: "Título da pergunta 2",
-            color: "#123456",
-            answers: [
-                {
-                    text: "Texto da resposta 1",
-                    image: "https://http.cat/411.jpg",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Texto da resposta 2",
-                    image: "https://http.cat/412.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        },
-        {
-            title: "Título da pergunta 3",
-            color: "#123456",
-            answers: [
-                {
-                    text: "Texto da resposta 1",
-                    image: "https://http.cat/411.jpg",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Texto da resposta 2",
-                    image: "https://http.cat/412.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        }
-    ],
-    levels: [
-        {
-            title: "Título do nível 1",
-            image: "https://http.cat/411.jpg",
-            text: "Descrição do nível 1",
-            minValue: 0
-        },
-        {
-            title: "Título do nível 2",
-            image: "https://http.cat/412.jpg",
-            text: "Descrição do nível 2",
-            minValue: 50
-        }
-    ]
+let dataId=[];
+let dataKey=[];
+let responseQuizz;
+// CreateNewQuizz(myQuizz)
+let newQuizz={};
+let NewQuestion = [];
+let NewLevel = [];
+function CreateNewQuizz(){
+    
+    newQuizz.title = quizzTitle;
+    newQuizz.image = quizzUrl;
+    for(let i = 0; i<numberOfQuestions;i++){
+        NewQuestion.push(createNewQuestion(i));
+    }
+    for(let i =0; i< numberOfLevels;i++ ){
+        NewLevel.push(createNewLevel(i));
+    }
+    newQuizz.questions = NewQuestion;
+    newQuizz.levels = NewLevel;
+    console.log(newQuizz);
+    postQuizz(newQuizz);
+    
+ }
+ 
+function createNewQuestion(index){
+    const newDataQuestion= {
+        "title":GetFormData[index].quizzQuestion,
+        "color":GetFormData[index].quizzQuestionColor,
+        "answers": [
+            {
+                "text":GetFormData[index].quizzRightAnswer,
+                "image":GetFormData[index].quizzRightAnswerURL,
+                "isCorrectAnswer": true
+            },
+            {
+                "text":GetFormData[index].quizzIncorrectAnswer1,
+                "image":GetFormData[index].quizzIncorrectAnswerURL1,
+                "isCorrectAnswer": false
+            }
+        ]
+    }
+    if(GetFormData[index].quizzIncorrectAnswer2 != ""){
+    newDataQuestion.answers.push({
+        "text":GetFormData[index].quizzIncorrectAnswer2,
+        "image":GetFormData[index].quizzIncorrectAnswerURL3,
+        "isCorrectAnswer": false
+    })
+    }
+    if(GetFormData[index].quizzIncorrectAnswer3 != ""){
+        newDataQuestion.answers.push({
+            "text":GetFormData[index].quizzIncorrectAnswer3,
+            "image":GetFormData[index].quizzIncorrectAnswerURL3,
+            "isCorrectAnswer": false
+        })
+    }
+    return newDataQuestion;
+} 
+function createNewLevel(index){
+    const newDataLevel = {
+        "title": GetFormLevel[index].quizzLevel,
+        "minValue":GetFormLevel[index].LevelPorcent,
+        "image":GetFormLevel[index].LevelURL,
+        "text":GetFormLevel[index].LevelDescription
+    }
+    return newDataLevel;
 }
 
-
-// CreateNewQuizz(myQuizz)
-
-function CreateNewQuizz(quizz) {
+function postQuizz(quizz) {
     const promise = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizz)
     promise.then((response) => {
-        console.warn(response)
+        console.warn(response);
+        saveDataQuizz(response);
     })
     promise.catch((error) => {
         console.error(error)
     })
 }
+function saveDataQuizz(load){
+    responseQuizz=load.data;
+    id=responseQuizz.id;
+    dataId.push(responseQuizz.id);
+    dataKey.push(responseQuizz.key);
+    const idReadyToSend = JSON.stringify(dataId);
+    const keyReadyToSend = JSON.stringify(dataKey);
+    localStorage.setItem("id", idReadyToSend);
+    localStorage.setItem("key", keyReadyToSend);
+    setImageQuizz();
+    getDataQuizz();
+}
+function getDataQuizz(){
+    dataId= ""
+    dataKey = "";
+    const dataIdString = localStorage.getItem("id");
+    dataId = JSON.parse(dataIdString);
+    const dataKeyString = localStorage.getItem("key");
+    dataKey = JSON.parse(dataKeyString);
+    GetAllQuizzes()
+}
+function setImageQuizz(){
+    const element = document.querySelector(".quizz-success-box").style.backgroundImage = `url('${quizzUrl}')`;
+}
+
+  // let result ={
+    //     title:quizzTitle, 
+    //     image:"",
+    //     questions:[
+    //         {answers:[
+    //             {
+    //                 text:" ",
+    //                 image:"",
+    //                 isCorrectAnswer: true
+    //             }
+    //         ]
+
+    //         }
+    //     ]
+    // }
+   
+    //  for(let i =0; i < numberOfQuestions; i++){
+        
+    //     // resposta 0 da perguntao
+    //     result.questions[i].answers[0].text=GetFormData.quizzRightAnswer;
+    //     result.questions[i].answers[0].image=GetFormData.quizzRightAnswerURL;
+    //     result.questions[i].answers[0].isCorrectAnswer= true;
+    //     // resposta 1 da pergunta
+    //     result.questions[i].answers[1].text=GetFormData.quizzIncorrectAnswer1;
+    //     result.questions[i].answers[1].image=GetFormData.quizzIncorrectAnswerURL1;
+    //     result.questions[i].answers[1].isCorrectAnswer=false;
+    //     // resposta 2 da pergunta
+    //     if(GetFormData.quizzIncorrectAnswer2 != ""){
+    //         result.questions[i].answers[2].text=GetFormData.quizzIncorrectAnswer2;
+    //         result.questions[i].answers[2].image=GetFormData.quizzIncorrectAnswerURL2;
+    //         result.questions[i].answers[2].isCorrectAnswer=false;
+    //     }
+    //     // resposta 3 da pergunta
+    //     if(GetFormData.quizzIncorrectAnswer3 != ""){
+    //         result.questions[i].answers[3].text=GetFormData.quizzIncorrectAnswer3;
+    //         result.questions[i].answers[3].image=GetFormData.quizzIncorrectAnswerURL2;
+    //         result.questions[i].answers[3].isCorrectAnswer=false;
+    //     }
+    // }   
+      

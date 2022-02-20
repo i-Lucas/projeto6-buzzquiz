@@ -25,7 +25,7 @@
 .create-quizz-box {
     width: 80%;
     height: 80%;
-    background: #FAFAFA;
+    background: #E5E5E5;
     border: 1px dashed #D5D5D5;
     border-radius: 5px;
     display: flex;
