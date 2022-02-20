@@ -316,6 +316,7 @@ function CheckUserLocalStorage() {
 
     let check = window.localStorage.getItem('UserCreateQuizz')
     if (check === undefined || check === null || check === 'false') {
+        document.querySelector('.user-quizz-container').classList.add("hidden")
         console.log('Voce nao criou um quizz ainda')
         TOTAL_USER_QUIZZ = 0
     }
