@@ -28,18 +28,18 @@
                 <div class="create-quizz-container">
                     <div class="create-quizz-box">
                         <h1>Você não criou nenhum<br> quizz ainda :(</h1>
-                        <div class="create-btn"><button onclick="GetUserQuizzData('info')">Criar Quizz</button></div>
+                        <div class="create-btn"><button onclick="GetUserQuizzData('info')"data-identifier="create-quizz">Criar Quizz</button></div>
                     </div>
                 </div>
-                <div class="user-quizz-container">
+                <div class="user-quizz-container" data-identifier="user-quizzes">
                     <div class='user-quizz-title-p'>
                         <p>Seus Quizzes</p>
                         <div class='el-btn' onclick="GetUserQuizzData('info')">
-                            <button>+</button>
+                            <button data-identifier="create-quizz">+</button>
                         </div>
                     </div>
                 </div>
-                <div class="all-quizz-container">
+                <div class="all-quizz-container" data-identifier="general-quizzes">
                 </div>
             </section>
         </section>

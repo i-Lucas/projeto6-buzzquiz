@@ -25,7 +25,7 @@ function RenderAllQuizzes(quizzes) {
 
     for (let i = 0; i < quizzes.length; i++) {
         allquizzcontainer.innerHTML += `
-            <div class="all-quizz-box" id = "${quizzes[i].id}" onclick="getOnlyQuizz(${quizzes[i].id})">
+            <div class="all-quizz-box" id = "${quizzes[i].id}" onclick="getOnlyQuizz(${quizzes[i].id})" data-identifier="quizz-card">
                 <h1 class = 'title'>${quizzes[i].title}</h1>
             </div>
         `
@@ -122,25 +122,25 @@ function RenderQuestions(number, page) {
     const QuestionsInputContainer = document.querySelector('.quizz-questions-input-container')
     QuestionsInputContainer.innerHTML = `
         <div class="quizz-questions-text"><h1>Pergunta ${page}</h1></div>
-        <input type="text" id = "p1" placeholder="Texto da pergunta">
-        <input type="text" id = "p2" placeholder="Cor de fundo da pergunta">
+        <input type="text" id = "p1" placeholder="Texto da pergunta" data-identifier="question">
+        <input type="text" id = "p2" placeholder="Cor de fundo da pergunta" data-identifier="question">
         <div class="quizz-questions-text"><h1>Resposta correta</h1></div>
-        <input type="text" id = "r1" placeholder="Resposta correta">
-        <input type="text" id = "r2" placeholder="URL da imagem">
+        <input type="text" id = "r1" placeholder="Resposta correta" data-identifier="question">
+        <input type="text" id = "r2" placeholder="URL da imagem" data-identifier="question">
         <div class="quizz-questions-text"><h1>Respostas incorretas</h1></div>
-        <input type="text" id = "i1" placeholder="Resposta incorreta 1">
-        <input type="text" id = "i2" placeholder="URL da imagem 1">
-        <input type="text" id = "ii1" placeholder="Resposta incorreta 2">
-        <input type="text" id = "ii2" placeholder="URL da imagem 2">
-        <input type="text" id = "iii1" placeholder="Resposta incorreta 3">
-        <input type="text" id = "iii2" placeholder="URL da imagem 3">`
+        <input type="text" id = "i1" placeholder="Resposta incorreta 1" data-identifier="question">
+        <input type="text" id = "i2" placeholder="URL da imagem 1" data-identifier="question">
+        <input type="text" id = "ii1" placeholder="Resposta incorreta 2" data-identifier="question">
+        <input type="text" id = "ii2" placeholder="URL da imagem 2" data-identifier="question">
+        <input type="text" id = "iii1" placeholder="Resposta incorreta 3" data-identifier="question">
+        <input type="text" id = "iii2" placeholder="URL da imagem 3" data-identifier="question">`
 
     for (let i = 1; i <= number; i++) {
         if (page !== i) {
             QuestionsInputContainer.innerHTML += `
             <div class="quizz-question-box" id = '${i}'>
                 <div class="text"> <h1>Pergunta ${i}</h1></div>
-                <div class="icon" onclick="EditThisQuestion(${i})"><ion-icon name="create-outline"></ion-icon></div>
+                <div class="icon" onclick="EditThisQuestion(${i})" data-identifier="expand"><ion-icon name="create-outline"></ion-icon></div>
             </div>`
         }
     }
@@ -260,17 +260,17 @@ function RenderLevels(page, number) {
     const LevelsInputContainer = document.querySelector('.quizz-levels-input-container')
     LevelsInputContainer.innerHTML = `
     <div class="quizz-levels-text"><h1>Nivel ${currentLevel}</h1></div>
-    <input type="text" id = "x1" placeholder="Título do nível">
-    <input type="text" id = "x2" placeholder="% de acerto mínima">
-    <input type="text" id = "x3" placeholder="URL da imagem do nível">
-    <input type="text" id = "x4" placeholder="Descrição do nível">`
+    <input type="text" id = "x1" placeholder="Título do nível" data-identifier="level">
+    <input type="text" id = "x2" placeholder="% de acerto mínima" data-identifier="level">
+    <input type="text" id = "x3" placeholder="URL da imagem do nível" data-identifier="level">
+    <input type="text" id = "x4" placeholder="Descrição do nível" data-identifier="level">`
 
     for (let i = 1; i <= number; i++) {
         if (page !== i) {
             LevelsInputContainer.innerHTML += `
             <div class="quizz-levels-box" id = '${i}'>
                 <div class="text"> <h1>Nivel ${i}</h1></div>
-                <div class="icon" onclick="EditThisLevel(${i})"><ion-icon name="create-outline"></ion-icon></div>
+                <div class="icon" onclick="EditThisLevel(${i})" data-identifier="expand"><ion-icon name="create-outline"></ion-icon></div>
             </div>`
         }
     }
@@ -408,7 +408,7 @@ function RenderUserQuizz(idQuizz) {
         console.log(`quizz ${idQuizz} renderizou`)
 
         document.querySelector('.user-quizz-container').innerHTML += `
-        <div class="all-quizz-box" id = "${idQuizz}" onclick="getOnlyQuizz(${idQuizz})")>
+        <div class="all-quizz-box" id = "${idQuizz}" onclick="getOnlyQuizz(${idQuizz})") data-identifier="quizz-card">
         <h1 class = 'title'>${GetTitle_}</h1> </div>`
 
         const userBox = document.getElementById(`${idQuizz}`)

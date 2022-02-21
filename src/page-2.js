@@ -7,7 +7,7 @@ let range =0, conter =0;
 // Ao clicar em um quizz na tela inicial o onclick deve chamar a função getOnlyQuizz(id) e passar o id como parametro
 function getOnlyQuizz(load){
     const page3 = document.querySelector('.page-3')
-    page3.classList.add('hidden')
+    page3.classList.add('hidden')    
     id = load
     const promise = axios.get(urlOnlyQuizz + id);
     promise.then(renderizeQuizz);
@@ -36,13 +36,13 @@ function renderizeQuizz(load){
         answers.sort(randonQuestions);
         answers.forEach((iten ,answerIndex)=>{
             text+=`
-            <div id="A${answerIndex}" class="image-quizz-box unset" data-answer="${iten.isCorrectAnswer}" onclick ="selectAnswer(this, ${questionIndex}, ${answers.length},${iten.isCorrectAnswer})">
+            <div id="A${answerIndex}" class="image-quizz-box unset" data-answer="${iten.isCorrectAnswer}" onclick ="selectAnswer(this, ${questionIndex}, ${answers.length},${iten.isCorrectAnswer})" data-identifier="answer">
                 <img src="${iten.image}" alt=""/>
                 <h1>${iten.text}</h1>
             </div>`
         });
         questionsQuizz.innerHTML+=
-        `<div id="Q${questionIndex}" class="quizz-onlyquestion-container">
+        `<div id="Q${questionIndex}" class="quizz-onlyquestion-container" data-identifier="question">
             <div class="quizz-question-title" style="background : ${element.color};"> 
                 <h1>${element.title}</h1>
             </div> 
@@ -98,7 +98,7 @@ function setEndPage(){
         }    
     })
     resultPage.innerHTML+=`
-    <div class="resultPage">
+    <div class="resultPage" data-identifier="quizz-result">
         <div class="titleResult">
             <h1>${calc}% de acerto: ${data.levels[level-1].title}</h1>
         </div>
